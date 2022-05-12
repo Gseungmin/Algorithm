@@ -1,0 +1,29 @@
+def solution(s):
+    check = 0
+    Dict = dict()
+    Str = ""
+    L = 0
+    for i in range(1,len(s)-1):
+        if s[i] == "{":
+            check = 1
+            continue
+        elif s[i] == "}":
+            check = 0
+            List = Str.split(",")
+            L = max(L, len(List))
+            Dict[len(List)] = List
+            Str = ""
+            continue
+        elif s[i] == ",":
+            if check == 0:
+                continue
+        Str += s[i]
+    ans = [int(Dict[1][0])]
+    true = set()
+    true.add(Dict[1][0])
+    for i in range(2, L+1):
+        for j in Dict[i]:
+            if j not in true:
+                true.add(j)
+                ans.append(int(j))
+    return ans
