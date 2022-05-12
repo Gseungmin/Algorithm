@@ -1,0 +1,65 @@
+def solution(board):
+    true = dict()
+    true[(0,0,0,1)] = 0
+    from collections import deque
+    queue = deque()
+    queue.append([0,0,0,1,0])
+    dx = [-1,1,0,0]
+    dy = [0,0,-1,1]
+    while queue:
+        x1, y1, x2, y2, k = queue.popleft()
+        if x1 == (len(board)-1) and y1 == (len(board)-1):
+            return k
+        if x2 == (len(board)-1) and y2 == (len(board)-1):
+            return k
+        for i in range(4):
+            nx1, ny1, nx2, ny2 = x1+dx[i], y1+dy[i], x2+dx[i], y2+dy[i]
+            if 0<=nx1<len(board) and 0<=nx2<len(board) and 0<=ny1<len(board) and 0<=ny2<len(board):
+                if board[nx1][ny1] != 1 and board[nx2][ny2] != 1:
+                    if (nx1,ny1,nx2,ny2) not in true and (nx2,ny2,nx1,ny1) not in true:
+                        true[(nx1,ny1,nx2,ny2)] = k+1
+                        queue.append([nx1,ny1,nx2,ny2,k+1])
+        if x1 == x2:
+            y1, y2 = min(y1,y2), max(y1,y2)
+            nx1, ny1 = x1-1, y1
+            nx2, ny2 = x2-1, y2
+            if 0<=nx1<len(board) and 0<=nx2<len(board) and 0<=ny1<len(board) and 0<=ny2<len(board):
+                if board[nx1][ny1] != 1 and board[nx2][ny2] != 1:
+                    if (nx2,ny2,x2,y2) not in true and (x2,y2,nx2,ny2) not in true:
+                        true[(nx2,ny2,x2,y2)] = k+1
+                        queue.append([nx2,ny2,x2,y2,k+1])
+                    if (nx1,ny1,x1,y1) not in true and (x1,y1,nx1,ny1) not in true:
+                        true[(nx1,ny1,x1,y1)] = k+1
+                        queue.append([nx1,ny1,x1,y1,k+1])
+            nx1, ny1 = x1+1, y1
+            nx2, ny2 = x2+1, y2
+            if 0<=nx1<len(board) and 0<=nx2<len(board) and 0<=ny1<len(board) and 0<=ny2<len(board):
+                if board[nx1][ny1] != 1 and board[nx2][ny2] != 1:
+                    if (nx2,ny2,x2,y2) not in true and (x2,y2,nx2,ny2) not in true:
+                        true[(nx2,ny2,x2,y2)] = k+1
+                        queue.append([nx2,ny2,x2,y2,k+1])
+                    if (nx1,ny1,x1,y1) not in true and (x1,y1,nx1,ny1) not in true:
+                        true[(nx1,ny1,x1,y1)] = k+1
+                        queue.append([nx1,ny1,x1,y1,k+1])
+        elif y1 == y2:
+            x1, x2 = min(x1,x2), max(x1,x2)
+            nx1, ny1 = x1, y1+1
+            nx2, ny2 = x2, y2+1
+            if 0<=nx1<len(board) and 0<=nx2<len(board) and 0<=ny1<len(board) and 0<=ny2<len(board):
+                if board[nx1][ny1] != 1 and board[nx2][ny2] != 1:
+                    if (nx1,ny1,x1,y1) not in true and (x1,y1,nx1,ny1) not in true:
+                        true[(nx1,ny1,x1,y1)] = k+1
+                        queue.append([nx1,ny1,x1,y1,k+1])
+                    if (nx2,ny2,x2,y2) not in true and (x2,y2,nx2,ny2) not in true:
+                        true[(nx2,ny2,x2,y2)] = k+1
+                        queue.append([nx2,ny2,x2,y2,k+1])
+            nx1, ny1 = x1, y1-1
+            nx2, ny2 = x2, y2-1
+            if 0<=nx1<len(board) and 0<=nx2<len(board) and 0<=ny1<len(board) and 0<=ny2<len(board):
+                if board[nx1][ny1] != 1 and board[nx2][ny2] != 1:
+                    if (nx1,ny1,x1,y1) not in true and (x1,y1,nx1,ny1) not in true:
+                        true[(nx1,ny1,x1,y1)] = k+1
+                        queue.append([nx1,ny1,x1,y1,k+1])
+                    if (nx2,ny2,x2,y2) not in true and (x2,y2,nx2,ny2) not in true:
+                        true[(nx2,ny2,x2,y2)] = k+1
+                        queue.append([nx2,ny2,x2,y2,k+1])
