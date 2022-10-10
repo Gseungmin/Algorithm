@@ -10,14 +10,11 @@
 
 이분 탐색(binary_search), 가장 긴 증가하는 부분 수열: O(n log n)(lis)
 
-### 중요 포인트
-1. lower bound를 이용한 LIS 문제 
-
 ### 문제 설명
 
 <p>반도체를 설계할 때 n개의 포트를 다른 n개의 포트와 연결해야 할 때가 있다.</p>
 
-<p style="text-align: center;"><img alt="" src="https://www.acmicpc.net/JudgeOnline/upload/201103/chip.png" style="height:235px; width:567px"></p>
+<p style="text-align: center;"><img alt="" src="" style="height:235px; width:567px"></p>
 
 <p>예를 들어 왼쪽 그림이 n개의 포트와 다른 n개의 포트를 어떻게 연결해야 하는지를 나타낸다. 하지만 이와 같이 연결을 할 경우에는 연결선이 서로 꼬이기 때문에 이와 같이 연결할 수 없다. n개의 포트가 다른 n개의 포트와 어떻게 연결되어야 하는지가 주어졌을 때, 연결선이 서로 꼬이지(겹치지, 교차하지) 않도록 하면서 최대 몇 개까지 연결할 수 있는지를 알아내는 프로그램을 작성하시오</p>
 

@@ -1,4 +1,4 @@
-# [Gold I] 크리스마스 트리 - 1234 
+# [Gold II] 크리스마스 트리 - 1234 
 
 [문제 링크](https://www.acmicpc.net/problem/1234) 
 
