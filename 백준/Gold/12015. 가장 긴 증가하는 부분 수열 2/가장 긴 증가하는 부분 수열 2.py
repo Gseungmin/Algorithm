@@ -1,13 +1,15 @@
 import sys
-from bisect import bisect_left
 input = sys.stdin.readline
-N = int(input())
-arr = list(map(int,input().split()))
-List = [0]
+import bisect
 
-for num in arr:
-    if List[-1] < num:
-        List.append(num)
+N = int(input())
+List = list(map(int,input().split()))
+
+ans = [List[0]]
+for i in range(1,N):
+    if List[i] > ans[-1]:
+        ans.append(List[i])
     else:
-        List[bisect_left(List, num)] = num
-print(len(List)-1)
+        index = bisect.bisect_left(ans, List[i])
+        ans[index] = List[i]
+print(len(ans))
