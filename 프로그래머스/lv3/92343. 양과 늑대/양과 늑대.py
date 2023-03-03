@@ -1,47 +1,51 @@
-def RC(true, sheep, wolf, info, ans, graph):
+#양의 수가 더 많아야 함
+def RC(now, wolf, sheep, true, info, graph,answer):
     
-    #이동할 수 있는 경우
-    List = []
-    for i in range(len(info)):
-        if true[i] == 2:
-            for j in graph[i]:
-                if true[j] == 0:
-                    List.append(j)
-    
-    if len(List) == 0:
-        ans[0] = max(ans[0], sheep)
+    if wolf == sheep:
         return
     
-    for i in List:
-        if info[i] == 1: #늑대일 경우
-            if sheep > wolf+1:
-                true[i] = 2
-                RC(true, sheep, wolf+1, info, ans, graph)
-                true[i] = 0
-            else:
-                true[i] = 1
-                RC(true, sheep, wolf, info, ans, graph)
-                true[i] = 0
+    answer[0] = max(answer[0], sheep)
+    
+    new_now = []
+    for i in now:
+        check = True
+        for j in graph[i]:
+            if true[j] == False:
+                new_now.append(i)
+                break
         
-        if info[i] == 0: #양일 경우
-            true[i] = 2
-            RC(true, sheep+1, wolf, info, ans, graph)
-            true[i] = 0
+    for i in now:
+        for j in graph[i]:
+            if true[j] == False:
+                if info[j] == 0: #양일 경우
+                    true[j] = True
+                    new_now.append(j)
+                    RC(new_now, wolf, sheep+1, true, info, graph,answer)
+                    new_now.pop()
+                    true[j] = False
+                elif info[j] == 1: #늑대일 경우
+                    true[j] = True
+                    new_now.append(j)
+                    RC(new_now, wolf+1, sheep, true, info, graph,answer)
+                    new_now.pop()
+                    true[j] = False
+    
     return
 
 def solution(info, edges):
-    answer = 0
+    answer = [0]
     
-    #연결상태 초기화
     graph = [[] for i in range(len(info))]
+    
     for i, j in edges:
         graph[i].append(j)
     
-    #현재 상태 초기화
-    true = [0]*len(info)
-    true[0] = 2
+    wolf = 0
+    sheep = 1
+    now = [0]
+    true = [False]*len(info)
+    true[0] = True
     
-    ans = [0]
-    RC(true, 1, 0, info, ans, graph)
+    RC(now, wolf, sheep, true, info, graph, answer)
     
-    return ans[0]
+    return answer[0]
