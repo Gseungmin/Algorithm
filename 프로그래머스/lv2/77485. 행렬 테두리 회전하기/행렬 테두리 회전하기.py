@@ -45,4 +45,5 @@ def solution(rows, columns, queries):
             graph[x][y] = new_value[key]
 
         answer.append(Min)
+        
     return answer
