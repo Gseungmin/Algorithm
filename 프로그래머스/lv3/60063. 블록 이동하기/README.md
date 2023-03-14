@@ -1,10 +1,10 @@
 # [level 3] 블록 이동하기 - 60063 
 
-[문제 링크](https://programmers.co.kr/learn/courses/30/lessons/60063) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/60063) 
 
 ### 성능 요약
 
-메모리: 10.8 MB, 시간: 22.00 ms
+메모리: 10.9 MB, 시간: 22.96 ms
 
 ### 구분
 
@@ -58,10 +58,6 @@
 
 <p>문제에 주어진 예시와 같습니다.<br>
 로봇이 오른쪽으로 한 칸 이동 후, (1, 3) 칸을 축으로 반시계 방향으로 90도 회전합니다. 다시, 아래쪽으로 3칸 이동하면 로봇은 (4, 3), (5, 3) 두 칸을 차지하게 됩니다. 이제 (5, 3)을 축으로 시계 방향으로 90도 회전 후, 오른쪽으로 한 칸 이동하면 (N, N)에 도착합니다. 따라서 목적지에 도달하기까지 최소 7초가 걸립니다.</p>
-
-<hr>
-
-<p><u>혼자 풀기가 막막하다면, 풀이 강의를 들어보세요</u> <a href="https://programmers.co.kr/learn/courses/10336?utm_source=programmers&amp;utm_medium=test_course10336&amp;utm_campaign=course_10336" target="_blank" rel="noopener">(클릭)</a></p>
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
