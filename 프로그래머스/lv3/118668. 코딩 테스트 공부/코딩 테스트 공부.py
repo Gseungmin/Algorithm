@@ -43,7 +43,7 @@ def solution(alp, cop, problems):
 
         #문제 풀이
         for a, b, c, d, e in problems:
-            if a <= x and b <= y: #문제를 풀 수 있을 경우
+            if a <= x and b <= y:
                 nx, ny = min(150, x+c), min(150, y+d)
                 if true[nx][ny] == False:
                     if dist[nx][ny] > k+e:
