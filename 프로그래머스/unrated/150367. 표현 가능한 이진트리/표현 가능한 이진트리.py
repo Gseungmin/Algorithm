@@ -5,9 +5,7 @@ def solution(numbers):
             y=str(x%2)+y
             x//=2
         return y
-
-    List = [change(i) for i in numbers]
-
+    
     def fun(num):
         l = len(num)
         k = 2
@@ -16,6 +14,8 @@ def solution(numbers):
         while len(num) < k-1:
             num = "0"+ num
         return num
+
+    List = [change(i) for i in numbers]
 
     answer = [1]*len(List)
 
