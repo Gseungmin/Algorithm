@@ -1,6 +1,6 @@
 def solution(cap, n, deliveries, pickups):
-    deliv_stack = []
     pick_stack = []
+    deliv_stack = []
     for i in range(n):
         if deliveries[i] != 0:
             deliv_stack.append([i,deliveries[i]])
