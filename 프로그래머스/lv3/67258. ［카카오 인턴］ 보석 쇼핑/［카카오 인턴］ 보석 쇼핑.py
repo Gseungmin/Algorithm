@@ -1,6 +1,6 @@
 def solution(gems):
-    gem = dict()
     cnt = dict()
+    gem = dict()
     for i in gems:
         if i not in cnt:
             cnt[i] = 0
