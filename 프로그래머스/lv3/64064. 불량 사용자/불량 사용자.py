@@ -1,6 +1,7 @@
 import sys
 def solution(user_id, banned_id):
     count = dict()
+    
     for i in banned_id:
         if i in count:
             count[i] += 1
