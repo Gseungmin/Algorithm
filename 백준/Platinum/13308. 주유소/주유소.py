@@ -22,15 +22,12 @@ while heap:
     if true[x][k] == True:
         continue
     true[x][k] = True
+    if x == N:
+        print(c)
+        sys.exit()
     for nx, d in graph[x]:
         value = min(cost[nx], k)
         if true[nx][value] == False:
             if dist[nx][value] > dist[x][k] + d*k: #d는 거리, k는 기름 최솟값
                 dist[nx][value] = dist[x][k] + d*k
                 heapq.heappush(heap, [dist[nx][value], value, nx])
-
-ans = INF
-for i in dist[N]:
-    ans = min(ans, i)
-
-print(ans)
