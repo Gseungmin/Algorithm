@@ -1,43 +1,46 @@
-//45중 6개를 찍어서 맞춰야 함
-//로또로 가능했던 최고 순위와 최저 순위를 알고 싶어짐
-//순서와 상관없음
-//lottos는 내가 뽑은 수
-//win_nums는 로또 번호
-//lottos 돌면서 0의 개수 세고 맞는 개수 세기, 맞는 개수가 최저, 0의 개수 + 맞는 개수가 최고 개수
+//10:47
+//당첨 번호순으로 순위가 정해짐
+//당첨이 가능했던 최고 및 최저 순위를 알고 싶다 -> Map을 통해 맞춘 양에 따라 순위 값 구해주면 될듯
 
 import java.util.*;
 
 class Solution {
     public int[] solution(int[] lottos, int[] win_nums) {
+        int[] answer = {0, 0};
         
-        //로또 번호 정리
-        HashSet<Integer> nums = new HashSet<Integer>();
-        for (int i = 0; i< win_nums.length; i++) {
-            nums.add(win_nums[i]);
-        }
+        //score 초기화
+        HashMap<Integer, Integer> score = new HashMap<Integer, Integer>();
         
-        //당첨 매칭
-        HashMap<Integer, Integer> match = new HashMap<Integer, Integer>();
-        int[] a = {6,5,4,3,2,1,0};
-        int[] b = {1,2,3,4,5,6,6};
-    
+        int[] a = {1,2,3,4,5,6,6};
+        int[] b = {6,5,4,3,2,1,0};
+        
         for (int i = 0; i<a.length; i++) {
-            match.put(a[i], b[i]);
+            score.put(b[i], a[i]);
         }
         
-        //0의 개수
-        int count = 0;
-        //맞은 번호의 개수
-        int lottoCount = 0;
+        //Set으로 당첨 번호 초기화, 시간복잡도를 위해 초기화
+        HashSet<Integer> nums = new HashSet<Integer>();
+        for (int i : win_nums) {
+            nums.add(i);
+        }
+        
+        int count = 0; //0의 수
+        int right = 0; //맞은 수
+        
         for (int i : lottos) {
+            
             if (i == 0) {
-                count += 1;
-            } else if (nums.contains(i)) {
-                lottoCount ++;
+                count++;
+            }
+            
+            if (nums.contains(i)) {
+                right++;
             }
         }
         
-        int[] answer = {match.get(lottoCount + count), match.get(lottoCount)};
+        answer[0] = score.get(count+right);
+        answer[1] = score.get(right);
+        
         return answer;
     }
 }
