@@ -1,0 +1,63 @@
+//2:38
+//특수 임무 수행중
+//두 지역간 걸리는 시간 1
+//각 부대원은 최단 시간으로 부대로 복귀
+//복귀 불가능한 부대원 존재
+
+//BFS로 풀면 될듯?
+
+import java.util.*;
+class Solution {
+    public int[] solution(int n, int[][] roads, int[] sources, int destination) {
+        
+        //변수 초기화
+        int[] answer = new int[sources.length];
+        int k = -1;
+        int value = -1;
+        Integer x = -1, y = -1;
+        boolean[] True = new boolean[n+1];
+        int[] dist = new int[n+1];
+        
+        //graph 초기화
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n+1; i++) {
+            graph.add(new ArrayList<Integer>());
+        }
+        
+        for (int[] road : roads) {
+            x = road[0];
+            y = road[1];
+            graph.get(x).add(y);
+            graph.get(y).add(x);
+        }
+        
+        //BFS 시작
+        True[destination] = true;
+        Deque<Integer> queue = new LinkedList<Integer>();
+        queue.add(destination);
+        
+        while (queue.size() > 0) {
+            x = queue.pollFirst();
+            
+            for (Integer nx : graph.get(x)) {
+                if (True[nx] == false) {
+                    dist[nx] = dist[x] + 1;
+                    True[nx] = true;
+                    queue.add(nx);
+                }    
+            }
+        }
+        
+        for (int i = 0; i < sources.length; i++) {
+            value = dist[sources[i]];
+            if (value != 0) {
+                answer[i] = dist[sources[i]];
+                continue;
+            }
+            if (sources[i] != destination) {
+                answer[i] = -1;
+            }
+        }
+        return answer;
+    }
+}
