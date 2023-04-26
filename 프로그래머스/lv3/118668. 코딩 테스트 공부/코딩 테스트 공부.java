@@ -1,19 +1,16 @@
-//9:7
-//알고력, 코딩력이 존재
-//문제를 풀기 위해서는 일정 수준 이상의 알고력과 코딩력이 필요
-//알고력과 코딩력은 1의 시간을 통해 1 높일 수 있음
-//각 문제마다 올라가는 알고력과 코딩력이 정해져 있음
-//같은 문제를 여러번 푸는 것이 가능함
-//주어진 모든 문제들을 풀 수 있는 알고력과 코딩력을 얻는 최단 시간
-
+//알고력과 코딩력 존재
+//문제를 해결하기 위해서는 알고력과 코딩력을 높여야 함
+//각 문제마다 올라가는 알고력과 코딩력이 있고 1의 시간동안 각각 올릴 수 있음
+//최소 시간이니까 다익스트라
 import java.util.*;
 
 class Node {
     
-    int d;
-    int al;
-    int co;
+    int d; //거리
+    int al; //알고력
+    int co; //코딩력
     
+    //생성자
     public Node(int d, int al, int co) {
         this.d = d;
         this.al = al;
@@ -23,103 +20,93 @@ class Node {
 
 class Solution {
     public int solution(int alp, int cop, int[][] problems) {
-        int answer = 0; //답
-        int max_al = 0; //목표 알고력
-        int max_co = 0; //목표 코딩력
-        int value = 0; //목표 코딩력
-        Node now;
-        int k;
-        int x;
-        int y;
-        int nk;
-        int nx;
-        int ny;
-        
-        // //모든 문제들을 돌면서 최대 알고력과 코딩력 구하기
-        // for (int[] problem : problems) {
-        //     max_al = Math.max(max_al, problem[0]);
-        //     max_co = Math.max(max_co, problem[1]);
-        // }
-        
-        //다익스트라 초기화
-        PriorityQueue<Node> queue = new PriorityQueue<Node>((o1, o2) -> {
-            return o1.d - o2.d;
-        });
-        int Max = 10000000;
+        int answer = 0;
         boolean[][] check = new boolean[151][151];
         int[][] dist = new int[151][151];
         
-        for (int i=0; i<151 ; i++) {
-            for (int j=0; j<151 ; j++) {
+        int Max = 100000000;
+        for (int i=0; i<151; i++) {
+            for (int j=0; j<151; j++) {
                 dist[i][j] = Max;
             }
         }
-        
         dist[alp][cop] = 0;
-        queue.add(new Node(0,alp,cop));
         
-        //다익스트라 알고리즘
-        while (queue.size() > 0) {
-            now = queue.poll();
-            k = now.d;
-            x = now.al;
-            y = now.co;
+        PriorityQueue<Node> heap = new PriorityQueue<>((o1, o2) -> {
+            return o1.d-o2.d;
+        });
+        
+        heap.add(new Node(0,alp,cop));
+        
+        int d;
+        int al;
+        int co;
+        int nal;
+        int nco;
+        Node now;
+        boolean c;
+        //다익스트라 시작
+        while (heap.size() > 0) {
+            now = heap.poll();
+            d = now.d;
+            al = now.al;
+            co = now.co;
             
-            //이미 최단거리 구해짐
-            if (check[x][y] == true) {
+            if (check[al][co] == true) {
                 continue;
             }
-            check[x][y] = true;
             
-            // //종료조건
-            // if ((x == max_al) & (y == max_co)) {
-            //     answer = k;
-            //     break;
-            // }
+            check[al][co] = true;
             
-            value = 0;
-            //문제들 돌면서 풀 수 있으면 풀기
+            c = true;
+            //모든 경우 다 할 수 있는지 파악
             for (int[] problem : problems) {
-                if ((x >= problem[0]) & (y >= problem[1])) {
-                    value += 1;
-                    nx = Math.min(150, x+problem[2]);
-                    ny = Math.min(150, y+problem[3]);
-                    if (check[nx][ny] == false) {
-                        if (dist[nx][ny] > k+problem[4]) {
-                            dist[nx][ny] = k+problem[4];
-                            queue.add(new Node(dist[nx][ny], nx, ny));
+                //풀수 있다면
+                if ((problem[0] <= al) && (problem[1] <= co)) {
+                    nal = Math.min(al+problem[2], 150);
+                    nco = Math.min(co+problem[3], 150);
+                    
+                    if (check[nal][nco] == false) {
+                        
+                        if (dist[nal][nco] > d + problem[4]) {
+                            dist[nal][nco] = d + problem[4];
+                            heap.add(new Node(dist[nal][nco], nal, nco));
                         }
                     }
-                }
-            }
-            
-            if (value == problems.length) {
-                answer = k;
-                break;
-            }
 
-            if (x < 150) {
-                nx = x+1;
-                //알고리즘 공부
-                if (check[nx][y] == false) {
-                    if (dist[nx][y] > k+1) {
-                        dist[nx][y] = k+1;
-                        queue.add(new Node(dist[nx][y], nx, y));
-                    }
+                } else {
+                    c = false;
                 }
             }
             
-            if (y < 150) {
-                ny = y+1;
-                //코딩 공부
-                if (check[x][ny] == false) {
-                    if (dist[x][ny] > k+1) {
-                        dist[x][ny] = k+1;
-                        queue.add(new Node(dist[x][ny], x, ny));
-                    }
-                } 
+            if (c == true) {
+                answer = d;
+                return answer;
+            }
+            
+            nal = Math.min(al+1, 150);
+            nco = Math.min(co+1, 150);
+
+            if (check[nal][co] == false) {
+
+                if (dist[nal][co] > d + 1) {
+                    dist[nal][co] = d + 1;
+                    heap.add(new Node(dist[nal][co], nal, co));
+                }
+            }
+            
+            if (check[al][nco] == false) {
+
+                if (dist[al][nco] > d + 1) {
+                    dist[al][nco] = d + 1;
+                    heap.add(new Node(dist[al][nco], al, nco));
+                }
             }
         }
+        
+        
+        
+        
         return answer;
     }
 }
