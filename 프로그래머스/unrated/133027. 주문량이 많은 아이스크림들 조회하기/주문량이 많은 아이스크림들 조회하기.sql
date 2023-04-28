@@ -1,4 +1,4 @@
--- 7월 아이스크림 총 주문량과 상반기 아이스크림 총 주문량을 더한 값이 큰 순서대로 상위 3개의 맛 조회
+-- 상반기 테이블과 7월 테이블이 있음
 SELECT FLAVOR FROM (SELECT * FROM FIRST_HALF
 UNION ALL
 SELECT * FROM JULY) AS T
