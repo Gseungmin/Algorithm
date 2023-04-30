@@ -1,11 +1,3 @@
-//2:38
-//특수 임무 수행중
-//두 지역간 걸리는 시간 1
-//각 부대원은 최단 시간으로 부대로 복귀
-//복귀 불가능한 부대원 존재
-
-//BFS로 풀면 될듯?
-
 import java.util.*;
 class Solution {
     public int[] solution(int n, int[][] roads, int[] sources, int destination) {
