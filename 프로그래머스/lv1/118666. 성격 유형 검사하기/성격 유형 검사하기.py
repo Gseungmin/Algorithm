@@ -6,7 +6,7 @@ def solution(survey, choices):
         score[x] = 0
         score[y] = 0
 
-    #성격 유형 검사 시작
+
     for i in range(len(survey)):
         x, y = survey[i][0], survey[i][1]
         k = choices[i]
@@ -15,7 +15,7 @@ def solution(survey, choices):
         elif 4 < k:
             score[y] += k-4
 
-    #검사 결과 도출
+
     answer = ""
     for x, y in List:
         if score[x] >= score[y]:
