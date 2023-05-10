@@ -1,31 +1,29 @@
 import sys
 input = sys.stdin.readline
-INF = int(1e9)
-
-V, E = map(int,input().split())
-edges = []
-dist = [INF]*(V+1)
-
-for i in range(E):
-    u, v, w = map(int,input().split())
-    edges.append([u,v,w])
+INF = sys.maxsize
 
 def BF(start):
     dist[start] = 0
-    for i in range(V):
-        for j in range(E):
-            node, next_node, cost = edges[j][0], edges[j][1], edges[j][2]
-            if dist[node] != INF and dist[next_node] > dist[node] + cost:
-                dist[next_node] = dist[node] + cost
-                if i == V-1:
-                    return True
-    return False
+    for i in range(N):
+        for j in edge:
+            x, y, k = j[0], j[1], j[2]
+            if dist[x] != INF and dist[y] > dist[x] + k:
+                dist[y] = dist[x] + k
+                if i == N-1:
+                    return False
+    return True
 
+N, M = map(int,input().split())
+edge = []
+for i in range(M):
+    a, b, c = map(int,input().split())
+    edge.append([a,b,c])
+dist = [INF]*(N+1)
 ans = BF(1)
-if ans:
+if not ans:
     print(-1)
 else:
-    for i in range(2,V+1):
+    for i in range(2, N+1):
         if dist[i] == INF:
             print(-1)
         else:
