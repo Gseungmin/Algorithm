@@ -1,7 +1,3 @@
-//알고력과 코딩력 존재
-//문제를 해결하기 위해서는 알고력과 코딩력을 높여야 함
-//각 문제마다 올라가는 알고력과 코딩력이 있고 1의 시간동안 각각 올릴 수 있음
-//최소 시간이니까 다익스트라
 import java.util.*;
 
 class Node {
@@ -19,6 +15,9 @@ class Node {
 }
 
 class Solution {
+
+    public static int k;
+    
     public int solution(int alp, int cop, int[][] problems) {
         int answer = 0;
         boolean[][] check = new boolean[151][151];
@@ -36,6 +35,7 @@ class Solution {
             return o1.d-o2.d;
         });
         
+        
         heap.add(new Node(0,alp,cop));
         
         int d;
@@ -51,6 +51,7 @@ class Solution {
             d = now.d;
             al = now.al;
             co = now.co;
+            
             
             if (check[al][co] == true) {
                 continue;
@@ -103,7 +104,6 @@ class Solution {
                 }
             }
         }
-        
         
         
         
