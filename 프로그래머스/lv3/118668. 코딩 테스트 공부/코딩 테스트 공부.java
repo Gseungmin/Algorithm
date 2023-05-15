@@ -6,7 +6,6 @@ class Node {
     int al; //알고력
     int co; //코딩력
     
-    //생성자
     public Node(int d, int al, int co) {
         this.d = d;
         this.al = al;
